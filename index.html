@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Untuk Kaenur Safitri</title>
+    <style>
+        :root { --primary: #d4a373; --bg: #fefae0; --text: #606c38; --overlay-bg: #faedcd; }
+        body { margin: 0; background: var(--bg); font-family: 'Segoe UI', Tahoma, sans-serif; overflow: hidden; height: 100vh; }
+        
+        /* --- LAYAR PEMBUKA (OVERLAY) --- */
+        #overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--overlay-bg); z-index: 100; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; transition: opacity 1s ease-out; padding: 20px; box-sizing: border-box; }
+        #overlay h2 { color: var(--text); margin-bottom: 20px; font-weight: normal; font-size: 24px; }
+        #open-btn { padding: 15px 40px; background: var(--primary); color: white; border: none; border-radius: 30px; font-size: 18px; cursor: pointer; box-shadow: 0 5px 15px rgba(212, 163, 115, 0.4); transition: transform 0.2s; }
+        #open-btn:active { transform: scale(0.95); }
+
+        /* --- KARTU UTAMA --- */
+        #main-content { display: flex; justify-content: center; align-items: center; min-height: 100vh; opacity: 0; transition: opacity 2s ease-in; visibility: hidden; padding: 20px; box-sizing: border-box; }
+        .card { background: white; padding: 30px 25px; border-radius: 20px; box-shadow: 0 15px 35px rgba(0,0,0,0.1); width: 100%; max-width: 380px; text-align: center; position: relative; z-index: 1; max-height: 90vh; overflow-y: auto; }
+        /* Angka 23 di latar belakang */
+        .age-bg { font-size: 80px; font-weight: 900; color: var(--primary); margin: 0; opacity: 0.15; position: absolute; top: 0px; left: 50%; transform: translateX(-50%); z-index: -1; }
+        
+        h1 { font-size: 22px; color: var(--text); margin-top: 15px; margin-bottom: 5px; line-height: 1.3; }
+        p { color: #666; line-height: 1.6; font-size: 14px; margin: 15px 0; }
+        .date { font-weight: bold; color: var(--primary); letter-spacing: 2px; font-size: 11px; text-transform: uppercase; display: block; margin-bottom: 5px; }
+        
+        /* --- GAYA FOTO KENANGAN --- */
+        .memory-photo {
+            width: 100%;
+            max-width: 220px; /* Agar tidak terlalu besar di HP */
+            height: auto;
+            border-radius: 12px; /* Sudut melengkung */
+            margin: 15px auto; /* Jarak atas bawah */
+            display: block;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15); /* Efek bayangan */
+            border: 4px solid white; /* Bingkai putih */
+            transform: rotate(-2deg); /* Sedikit miring agar estetik */
+        }
+
+        .floating-heart { position: absolute; color: #faedcd; font-size: 20px; animation: float 3s infinite ease-in; z-index: 0; pointer-events: none; }
+        #music-player { position: absolute; top: -9999px; left: -9999px; visibility: hidden; }
+        @keyframes float { from { transform: translateY(100vh) rotate(0deg); opacity: 1; } to { transform: translateY(-10vh) rotate(360deg); opacity: 0; } }
+    </style>
+</head>
+<body>
+
+    <div id="overlay">
+        <h2>Sebuah pesan untuk<br><b>Kaenur Safitri</b></h2>
+        <p style="font-size: 14px; color: #888; margin-bottom: 30px;">(Gunakan headset agar lebih terasa suasananya)</p>
+        <button id="open-btn">💌 Buka Pesan</button>
+    </div>
+
+    <div id="main-content">
+        <div id="hearts"></div>
+        <div class="card">
+            <div class="age-bg">23</div>
+            <span class="date">16 Februari</span>
+            <h1>Happy Birthday, <br>Kaenur Safitri ❤</h1>
+
+            <img src="https://i.postimg.cc/BvV1Y6kx/Whats-App-Image-2026-02-04-at-04-23-28.jpg" alt="Kenangan Kita" class="memory-photo">
+            <p>
+                Mungkin kita sudah di jalan masing-masing, tapi foto ini mengingatkan bahwa kamu pernah menjadi bagian cerita "cinta pertama" yang paling berkesan.
+            </p>
+            <p>
+                Selamat ulang tahun yang ke-23. Semoga bahagia selalu menyertaimu, hari ini dan seterusnya.
+            </p>
+            Semoga masanya bisa diulang kembali wkwkwk
+            </p>
+        </div>
+    </div>
+
+    <iframe id="music-player" width="1" height="1" src="" frameborder="0" allow="autoplay; encrypted-media"></iframe>
+
+    <script>
+        const overlay = document.getElementById('overlay');
+        const mainContent = document.getElementById('main-content');
+        const openBtn = document.getElementById('open-btn');
+        const musicPlayer = document.getElementById('music-player');
+
+        // --- ID YOUTUBE LAGU PILIHANMU ---
+        // Ganti dengan ID lagu nostalgia kalian
+        const youtubeVideoID = 'jieBCHsHg3A&list=RDjieBCHsHg3A&start_radio=1'; // darimatamu
+
+        openBtn.addEventListener('click', function() {
+            overlay.style.opacity = '0';
+            setTimeout(() => { overlay.style.display = 'none'; }, 1000);
+            mainContent.style.visibility = 'visible';
+            mainContent.style.opacity = '1';
+            musicPlayer.src = `https://www.youtube.com/embed/${youtubeVideoID}?autoplay=1&loop=1&playlist=${youtubeVideoID}&controls=0&showinfo=0&autohide=1`;
+            setInterval(createHeart, 300);
+        });
+
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.classList.add('floating-heart');
+            heart.innerHTML = '❤';
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.animationDuration = Math.random() * 3 + 2 + 's';
+            document.getElementById('hearts').appendChild(heart);
+            setTimeout(() => { heart.remove(); }, 5000);
+        }
+    </script>
+</body>
+</html>
